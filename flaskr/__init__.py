@@ -29,7 +29,13 @@ def create_app(test_config=None):
     def index():
         return 'Hello, World!'
 
-    from . import db
+    #Register the auth blueprint and initialize the database
+    from . import db, auth
     db.init_app(app)
-
+    app.register_blueprint(auth.bp)
+    #Register the pontaj blueprint
+    from . import pontaj
+    app.register_blueprint(pontaj.bp)
+    app.add_url_rule('/', endpoint='index')
+    
     return app

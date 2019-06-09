@@ -1,5 +1,5 @@
-venv/
-
+venv
+start_server.sh
 *.pyc
 __pycache__/
 
