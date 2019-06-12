@@ -7,3 +7,8 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 
 bp = Blueprint('pontaj', __name__)
+
+@bp.route('/')
+def index():
+    db=get_db();
+    return render_template('pontaj/index.html')

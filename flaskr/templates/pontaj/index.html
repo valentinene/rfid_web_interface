@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Posts{% endblock %}</h1>
+  {% if g.user %}
+    <p>Esti logat mastre, {{g.user['username']}}<p>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<p>Ce credeai</p>
+{% endblock %}

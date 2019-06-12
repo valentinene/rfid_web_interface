@@ -16,9 +16,9 @@ CREATE TABLE users (
 );
 
 CREATE TABLE angajati (
-  id_tag INTEGER PRIMARY KEY,
-  nume TEXT NOT NULL,
-  acces_camera NOT NULL,
+  id_tag TEXT,
+  nume TEXT PRIMARY KEY,
+  acces_camera INTEGER NOT NULL,
   FOREIGN KEY (nume) REFERENCES users(username),
   FOREIGN KEY (acces_camera) REFERENCES camere(id)
 );

@@ -24,11 +24,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/index')
-    def index():
-        return 'Hello, World!'
-
     #Register the auth blueprint and initialize the database
     from . import db, auth
     db.init_app(app)
