@@ -23,21 +23,18 @@ def register():
         admin = request.get_json()['admin']
         db = get_db()
         error = None
+        input = None
 
-        if not username:
-            error = 'Introduceti numele de utilizator.'
-        elif not password:
-            error = 'Introduceti parola.'
-        elif not camera:
-            error = 'Camera nu este selectata.'
-        elif db.execute(
+        if db.execute(
             'SELECT username FROM users WHERE username = ?', (username,)
         ).fetchone() is not None:
-            error = 'Numele este deja luat.'
+            error = 'Numele ales este deja luat.'
+            input = "username"
         elif db.execute(
             'SELECT id FROM camere WHERE id = ?', (camera,)
         ).fetchone() is None:
             error = 'Camera selectata nu exista.'
+            input = "camera"
         #Add the user in database
         if error is None:
             db.execute(
@@ -52,17 +49,19 @@ def register():
                     )
                 db.commit()
             except:
-                error = 'Error adding into angajati.'
+                error = 'Eroare adaugand angajat.'
+                input = "camera"
             #Run the function to read tag id in a parrallel process
             thr = threading.Thread(target=read_tag, args=(username, camera))
             thr.start()
-        if error is None:
-            return jsonify(
-                username = username,
-                camera = camera
-            )
-        flash(error)
+        return jsonify(
+            username = username,
+            camera = camera,
+            error = error,
+            input = input
+        )
     return render_template('auth/register.html')
+
 #The Login view function
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -75,9 +74,9 @@ def login():
             'SELECT * FROM users WHERE username = ?', (username,)
         ).fetchone()
         if user is None:
-            error = 'Incorrect username.'
+            error = 'Incorrect username or password.'
         elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            error = 'Incorrect username or password.'
         if error is None:
             session.clear()
             session['username'] = user['username']

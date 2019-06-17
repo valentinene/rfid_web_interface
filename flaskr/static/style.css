@@ -64,10 +64,10 @@ nav ul li a, nav ul li span, header .action {
   background: white;
   position: absolute;
   margin: auto;
-  left: 25%;
-  right: 40%;
-  bottom: 40%;
-  overflow: auto;
+  left: 30em;
+  right: 35em;
+  top: 6em;
+  overflow: hidden;
 }
 
 .content > header {
@@ -120,6 +120,7 @@ nav ul li a, nav ul li span, header .action {
   margin: 1em 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden; 
 }
 
 .content label {
@@ -150,12 +151,24 @@ input[type=submit] {
 
 #container {
   display: flex;
+  margin: 5px;
 }
 
 #messagebox{
   font-size:14px;
   color: red;
 }
+
+.error {
+  padding: 0;
+  font-size: 80%;
+  background-color: #900;
+  color: white;
+  border-radius: 0 0 5px 5px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 
 .loader {
   font-size: 10px;

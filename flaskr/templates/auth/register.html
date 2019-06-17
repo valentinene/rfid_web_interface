@@ -10,15 +10,18 @@
   <form method="post" id="register_form">
     <label for="username">Username</label>
     <input name="username" id="username" required>
+    <span  class= "error" id="username_error"></span>
     <label for="password">Password</label>
     <input type="password" name="password" id="password" required>
+    <span  class= "error" id="password_error"></span>
     {%if g.user['admin']%}
       <label for="admin">Drepturi administrator</label>
       <input type="checkbox" name="admin" id="admin">
     {% endif %}
     <label for="camera">Camera</label>
     <input name="camera" id="camera" required>
-    <div id= "container">
+    <span  class= "error" id="camera_error"></span>
+   <div id= "container">
       <div> 
         <input type="submit" value="Register" id="register"> 
       </div>
