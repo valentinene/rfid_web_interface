@@ -7,7 +7,7 @@
 <h1>Register new user</h1>
 {% endblock%}
 {% block content %}
-  <form method="post">
+  <form method="post" id="register_form">
     <label for="username">Username</label>
     <input name="username" id="username" required>
     <label for="password">Password</label>
@@ -18,7 +18,13 @@
     {% endif %}
     <label for="camera">Camera</label>
     <input name="camera" id="camera" required>
-    <input type="submit" value="Register" id="register">
+    <div id= "container">
+      <div> 
+        <input type="submit" value="Register" id="register"> 
+      </div>
+      <div class="loader" id= "loader"></div>
+    </div>
+    <p id= "messagebox"></p>
   </form>
   <script src="{{url_for('static', filename = 'scripts/jQuery.js')}}"></script>
   <script src="{{url_for('static', filename = 'scripts/register.js')}}"></script>

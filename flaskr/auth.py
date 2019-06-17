@@ -117,23 +117,16 @@ def login_required(view):
     return wrapped_view
 
 def read_tag(nume, camera):
-    f = open("LOWG.txt","a")
-    f.write("1")
+    reader = SimpleMFRC522()
     try:
-        f.write("2")
-        reader = SimpleMFRC522()
-        try:
-               id, text = reader.read()
-        finally:
-               GPIO.cleanup()
-        app = create_app()
-        with app.app_context():
-            db = get_db()
-            db.execute("UPDATE angajati SET id_tag = ? WHERE nume = ? and acces_camera = ?", (id, nume, camera))
-            db.commit()
-    except Exception as e:
-        f.write(str(e))
-
+           id, text = reader.read()
+    finally:
+           GPIO.cleanup()
+    app = create_app()
+    with app.app_context():
+        db = get_db()
+        db.execute("UPDATE angajati SET id_tag = ? WHERE nume = ? and acces_camera = ?", (id, nume, camera))
+        db.commit()
 
 @bp.route('/get_angajat')
 def get_angajat():
@@ -143,4 +136,4 @@ def get_angajat():
         row = db.execute("SELECT id_tag FROM angajati WHERE nume = ?", (username,)).fetchone()
         if row["id_tag"] is None:
             return jsonify(message = "NotFound")
-        return jsonify(message = "Found")
+        return jsonify(message = "Found", redirect = url_for('pontaj.index'))
