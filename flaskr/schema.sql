@@ -16,18 +16,18 @@ CREATE TABLE users (
 );
 
 CREATE TABLE angajati (
-  id_tag TEXT,
-  nume TEXT PRIMARY KEY,
-  acces_camera INTEGER NOT NULL,
-  FOREIGN KEY (nume) REFERENCES users(username),
-  FOREIGN KEY (acces_camera) REFERENCES camere(id)
+    id_angajat INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_tag TEXT UNIQUE,
+    nume TEXT, acces_camera INTEGER,
+    FOREIGN KEY (nume) REFERENCES users(username),
+    FOREIGN KEY (acces_camera) REFERENCES camere(id)
 );
 
 CREATE TABLE pontaj (
+  id_pontaj INTEGER PRIMARY KEY AUTOINCREMENT,
   id_tag TEXT,
   id_camera TEXT,
   timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (id_tag) REFERENCES angajati(id),
-  FOREIGN KEY (id_camera) REFERENCES camere(id),
-  PRIMARY KEY (id_tag, id_camera)
+  FOREIGN KEY (id_tag) REFERENCES angajati(id_tag),
+  FOREIGN KEY (id_camera) REFERENCES camere(id)
 );
