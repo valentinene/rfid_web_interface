@@ -1,5 +1,7 @@
 <!doctype html>
+<html lang="en">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<head>{% block head %}{% endblock %}</head>
 <body>
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <nav>

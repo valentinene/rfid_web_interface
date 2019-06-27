@@ -13,8 +13,19 @@ from mfrc522 import SimpleMFRC522
 #Blueprint for authentication functions
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+
+#Decorator for requiring login on some views
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        return view(**kwargs)
+    return wrapped_view
+
 #The register view function
 @bp.route('/register', methods=('GET', 'POST'))
+@login_required
 def register():
     if request.method == 'POST':
         username = request.get_json()['username']
@@ -106,14 +117,6 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-#Decorator for requiring login on some views
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-        return view(**kwargs)
-    return wrapped_view
 
 def read_tag(nume, camera):
     reader = SimpleMFRC522()

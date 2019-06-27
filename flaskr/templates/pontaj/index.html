@@ -1,12 +1,37 @@
 {% extends 'base.html' %}
-
+{% block head %}
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% endblock %}
 {% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
+<h1>{% block title %}Posts{% endblock %}</h1>
   {% if g.user %}
-    <p>Esti logat mastre, {{g.user['username']}}<p>
+    <p>Fisa pontaj - {{g.user['username']}}<p>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-<p>Ce credeai</p>
+<div class="table-responsive">
+    <table class="table table-hover" id="pontaje">
+	<thead>
+		<tr>
+		<th scope="col">Data si ora</th>
+		<th scope="col">ID Card</th>
+		<th scope="col">Camera</th>
+                </tr>
+        </thead>
+       	<tbody>
+		{% for pontaj in pontaje %}
+			<tr>
+			<td> {{ pontaj['timp'] }} </td>
+			<td> {{ pontaj['id_card'] }} </td>
+			<td> {{ pontaj['camera'] }} </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+     </table>
+</div>
 {% endblock %}
